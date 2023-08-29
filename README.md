@@ -10,3 +10,11 @@ Connect FT232H to ESP32:
 * AD3  ->  14
 * GND  ->  GND
 * 5V   ->  5V
+
+#### Create config.h file in src folder with following content:
+```
+#define WIFI_SSID "ssid"
+#define WIFI_PASSWORD "secret"
+#define BACKEND_HOST "domain.com"
+#define BACKEND_PORT 1111
+```
