@@ -59,10 +59,7 @@ void xTaskBlink(void *pvParameters) {
     pinMode(LED_BUILTIN, OUTPUT);
 
     for (;;) {
-        digitalWrite(LED_BUILTIN, LOW);
-        vTaskDelay(10);
-        digitalWrite(LED_BUILTIN, HIGH);
-        vTaskDelay(500);
+        vTaskDelay(1000);
     }
 }
 
@@ -71,10 +68,15 @@ void xTaskAnalogReadA3(void *pvParameters)
     (void) pvParameters;
 
     for (;;) {
+        digitalWrite(LED_BUILTIN, LOW);
+
         auto n = uxTaskGetStackHighWaterMark(NULL);
         Serial.print("Stack high water mark: " );
         Serial.println(n);
-        sendTcpMessage("Hello from ESP32!\n");
+        auto currentTime = xTaskGetTickCount();
+        sendTcpMessage("Hello from ESP32! Scheduler ticks: " + String(currentTime) + " Stack high water mark: " + String(n) + "\n");
+
+        digitalWrite(LED_BUILTIN, HIGH);
         vTaskDelay(1000);
     }
 }

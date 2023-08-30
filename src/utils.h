@@ -28,7 +28,7 @@ void connectToWifi(const char *ssid, const char *password) {
     logLine(WiFi.localIP().toString().c_str());
 }
 
-void sendTcpMessage(const char *message) {
+void sendTcpMessage(const String& message) {
     WiFiClient client = WiFiClient();
     logLine("Connecting to TCP server...");
     if (!client.connect(BACKEND_HOST, BACKEND_PORT)) {
@@ -37,8 +37,8 @@ void sendTcpMessage(const char *message) {
     }
 
     logLine("Sending TCP message...");
-    auto n = client.write(message);
-    if (n != strlen(message)) {
+    auto n = client.write(message.c_str());
+    if (n != strlen(message.c_str())) {
         logLine("Failed to send TCP message!");
         return;
     }
