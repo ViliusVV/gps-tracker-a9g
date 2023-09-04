@@ -30,6 +30,8 @@ void connectToWifi(const char *ssid, const char *password) {
 
 void sendTcpMessage(const String& message) {
     WiFiClient client = WiFiClient();
+
+    digitalWrite(LED_BUILTIN, LOW);
     logLine("Connecting to TCP server...");
     if (!client.connect(BACKEND_HOST, BACKEND_PORT)) {
         logLine("Failed to connect to TCP server!");
@@ -42,6 +44,13 @@ void sendTcpMessage(const String& message) {
         logLine("Failed to send TCP message!");
         return;
     }
+    digitalWrite(LED_BUILTIN, LOW);
+}
+
+void sendUdpPacket(const uint8_t bytes[]) {
+    WiFiUDP wifiUdp;
+    wifiUdp.beginPacket(BACKEND_HOST, BACKEND_PORT)
+    wifiUdp.
 }
 
 #endif //A9G_BIKE_TRACKER_UTILS_H
